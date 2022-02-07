@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="popup.css">
+  <script src="popup.js"></script>
+</head>
+
+<body>
+  <form id=time-selection>
+    <label for="value" class="time-selection-label"><b>time value</b></label>
+    <input type="number" name="value" id="value" min="0" step="any" />
+    <label for="unit" class="time-selection-label"><b>time unit</b></label>
+    <select name="unit" id="unit">
+      <option value="min">minutes</option>
+      <option value="hr">hours</option>
+    </select>
+    <input type="submit" value="Start" id="start-timer" />
+  </form>
+  <button id="cancel-timer">Cancel</button>
+  <div class="timer">
+    <svg class="timer-base" viewBox="0 0 100 100">
+      <g class="timer-progress-bar">
+        <circle class="time-consumed" cx="50" cy="50" r="45" />
+        <path id="time-remaining" stroke-dasharray="282.6" d="
+          M 50, 50
+          m -45, 0
+          a 45,45 0 1,0 90,0
+          a 45,45 0 1,0 -90,0
+        "></path>
+      </g>
+    </svg>
+    <span id="timer-label"></span>
+  </div>
+</body>
+
+</html>
