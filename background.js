@@ -30,7 +30,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
           if (alarm)
             sendResponse({ alarm, savedAlarmDuration: alarms[tabId] });
           else
-            sendResponse(null);
+            sendResponse();
         });
         break;
       case "cancelTimer":
@@ -40,7 +40,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         break;
       default:
         console.log('invalid msg');
-        sendResponse(null);
+        sendResponse();
     }
   });
   return true;

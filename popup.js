@@ -4,7 +4,11 @@ const hrToMs = 3600000;
 
 window.addEventListener("load", async function (event) {
   const prevAlarm = await loadPrevAlarm();
-  let timerInterval = prevAlarm !== null ? startTimerAnimation(prevAlarm.alarm.scheduledTime - Date.now(), prevAlarm.savedAlarmDuration) : document.getElementById("timer-label").innerText = formatTimeLeft(0);
+  let timerInterval;
+  if (!prevAlarm)
+    timerInterval = document.getElementById("timer-label").innerText = formatTimeLeft(0);
+  else
+    timerInterval = startTimerAnimation(prevAlarm.alarm.scheduledTime - Date.now(), prevAlarm.savedAlarmDuration)
 
   const form = document.getElementById('time-selection');
   form.addEventListener("submit", function (event) {
