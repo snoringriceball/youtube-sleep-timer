@@ -1,6 +1,6 @@
 {
   "name": "YouTube Sleep Timer",
-  "version": "2.0",
+  "version": "2.2",
   "description": "A video play/pause timer for Youtube! Also serves as a sleep timer :)",
   "content_security_policy": {
     "default-src": "self"
@@ -17,7 +17,13 @@
   },
   "action": {
     "default_title": "YouTube Sleep Timer",
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/greyscale_clock_16.png",
+      "32": "images/greyscale_clock_32.png",
+      "48": "images/greyscale_clock_48.png",
+      "128": "images/greyscale_clock_128.png"
+    }
   },
   "icons": {
     "16": "images/clock_16.png",

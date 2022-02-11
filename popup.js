@@ -24,7 +24,7 @@ async function getCurrentTab() {
 function loadInvalidSitePage() {
   const body = document.body;
   body.innerHTML = `
-  <p>The timer is only accessible on youtube.com and music.youtube.com</p>
+    <p>The timer is only accessible on youtube.com and music.youtube.com</p>
   `;
 }
 
@@ -66,8 +66,21 @@ async function loadAlarmPage() {
   });
 }
 
+// chrome's default promise not reliable
 async function loadPrevAlarm() {
-  return await chrome.runtime.sendMessage({ msg: 'getTimer' });
+  return await new Promise(resolve => {
+    chrome.runtime.sendMessage(
+      { msg: 'getTimer' },
+      (resp) => {
+        if (resp) {
+          resolve(resp);
+          console.log(`saved alarm: ${resp.alarm.scheduledTime}, duration: ${resp.savedAlarmDuration}`)
+        } else {
+          resolve(null);
+        }
+      }
+    );
+  });
 }
 
 function formatTimeLeft(time) {
