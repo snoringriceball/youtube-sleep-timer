@@ -8,7 +8,11 @@ chrome.runtime.onInstalled.addListener(function () {
         pageUrl: { urlMatches: 'https://*\.youtube\.com' },
       })
       ],
-      actions: [new chrome.declarativeContent.ShowAction()]
+      actions: [
+        chrome.declarativeContent.ShowAction
+        ? new chrome.declarativeContent.ShowAction()
+        : new chrome.declarativeContent.ShowPageAction()
+      ]
     }]);
   });
 });

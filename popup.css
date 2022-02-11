@@ -51,7 +51,7 @@
         transition: 1s linear all;
 
         /* Allows the ring to change color when the color value updates */
-        stroke: rgb(238, 204, 236);
+        stroke: paleturquoise;
     }
 
     .timer-base {

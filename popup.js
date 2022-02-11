@@ -2,7 +2,11 @@
 const minToMs = 60000;
 const hrToMs = 3600000;
 
-window.addEventListener("load", async function (event) {
+window.addEventListener("load", function (event) {
+  loadAlarmPage();
+});
+
+async function loadAlarmPage() {
   const prevAlarm = await loadPrevAlarm();
   let timerInterval;
   if (!prevAlarm)
@@ -38,7 +42,7 @@ window.addEventListener("load", async function (event) {
       .setAttribute("stroke-dasharray", `282.6`);
     document.getElementById("timer-label").innerText = formatTimeLeft(0);
   });
-});
+}
 
 async function loadPrevAlarm() {
   return await chrome.runtime.sendMessage({ msg: 'getTimer' });
