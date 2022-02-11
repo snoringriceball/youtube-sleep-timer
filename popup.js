@@ -12,7 +12,7 @@ window.addEventListener("load", async function (event) {
 async function validateSite() {
   const tab = await getCurrentTab();
   const url = tab.url;
-  return /^https:\/\/.*\.youtube\.com\/watch.*$/.test(url);
+  return /^https:\/\/.*\.youtube\.com.*$/.test(url);
 }
 
 async function getCurrentTab() {

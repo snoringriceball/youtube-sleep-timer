@@ -7,7 +7,7 @@ chrome.runtime.onInstalled.addListener(() => {
       {
         conditions: [
           new chrome.declarativeContent.PageStateMatcher({
-            pageUrl: { urlMatches: 'https://.*\.youtube\.com/watch' },
+            pageUrl: { urlMatches: 'https://.*\.youtube\.com' },
           })
         ],
         actions: [
