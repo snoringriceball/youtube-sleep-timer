@@ -8,7 +8,8 @@
   "permissions": [
     "declarativeContent",
     "alarms",
-    "scripting"
+    "scripting",
+    "tabs"
   ],
   "host_permissions": ["https://*.youtube.com/"],
   "background": {
