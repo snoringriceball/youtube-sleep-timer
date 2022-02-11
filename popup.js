@@ -3,6 +3,32 @@ const minToMs = 60000;
 const hrToMs = 3600000;
 
 window.addEventListener("load", async function (event) {
+  if (await validateSite())
+    loadAlarmPage();
+  else
+    loadInvalidSitePage();
+});
+
+async function validateSite() {
+  const tab = await getCurrentTab();
+  const url = tab.url;
+  return /^https:\/\/.*\.youtube\.com.*$/.test(url);
+}
+
+async function getCurrentTab() {
+  const queryOptions = { active: true, currentWindow: true };
+  const [tab] = await chrome.tabs.query(queryOptions);
+  return tab;
+}
+
+function loadInvalidSitePage() {
+  const body = document.body;
+  body.innerHTML = `
+    <p>The timer is only accessible on youtube.com and music.youtube.com</p>
+  `;
+}
+
+async function loadAlarmPage() {
   const prevAlarm = await loadPrevAlarm();
   let timerInterval;
   if (!prevAlarm)
@@ -38,10 +64,23 @@ window.addEventListener("load", async function (event) {
       .setAttribute("stroke-dasharray", `282.6`);
     document.getElementById("timer-label").innerText = formatTimeLeft(0);
   });
-});
+}
 
+// chrome's default promise not reliable
 async function loadPrevAlarm() {
-  return await chrome.runtime.sendMessage({ msg: 'getTimer' });
+  return await new Promise(resolve => {
+    chrome.runtime.sendMessage(
+      { msg: 'getTimer' },
+      (resp) => {
+        if (resp) {
+          resolve(resp);
+          console.log(`saved alarm: ${resp.alarm.scheduledTime}, duration: ${resp.savedAlarmDuration}`)
+        } else {
+          resolve(null);
+        }
+      }
+    );
+  });
 }
 
 function formatTimeLeft(time) {
