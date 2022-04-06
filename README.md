@@ -14,10 +14,10 @@ Or, download this repo and follow instructions [here](https://developer.chrome.c
     This project uses Chrome Alarms API to calculate time. Per Google's [documentation](https://developer.chrome.com/docs/extensions/reference/alarms/#method-create), alarms are limited to one alarm per minute, and the alarms will be delayed by an arbritary amount of time. To support developers, there is no rate limitation when you load the extension unpacked, so we encourage you to download our source code to by-pass this issue.
 
 2. What permissions do you require, and why?
-    - declarativeContent: 
-    "alarms",
-    "scripting",
-    "tabs"
+    - Declarative Content: This is for validating the website you are on, if it is part of Youtube or Youtube music, then the extension will be enabled, otherwise, it will remain disabled.
+    - Alarms: This is for using the Chrome Alarms API. Starting from manifest version 3 (mv3), developers are required to use this API for setting timers. Please note that because this API is managed by Google, we have no control over it's accuracy.
+    - Scripting: This is so that we can run some code to play/pause the Youtube Video.
+    - Tabs: This is so that we can keep track of which tab is running which timer.
 
 ## Disclaimer: 
 
