@@ -1,6 +1,5 @@
 'use strict';
 
-import internal from "stream";
 import LocalAlarm from "./LocalAlarm";
 
 
@@ -84,7 +83,7 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
   const localAlarm = await findLocalAlarmByName(alarm.name);
   if (!localAlarm) throw new Error(`Could not find alarm called ${alarm.name}`);
   await chrome.scripting.executeScript({
-    target: { tabId: localAlarm.tabId, allFrames: true },
+    target: { tabId: localAlarm.tabId },
     func: togglePlaybackState
   });
   deleteLocalAlarm(localAlarm.tabId);
@@ -98,7 +97,7 @@ chrome.tabs.onReplaced.addListener((addedTabId, removedTabId) => {
   modifyTabId(addedTabId, removedTabId);
 });
 
-async function togglePlaybackState() {
+const togglePlaybackState = () => {
   // youtube music
   let musicButton = <HTMLButtonElement>document.getElementsByClassName('play-pause-button')[0];
   if (!musicButton) {
