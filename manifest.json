@@ -1,17 +1,21 @@
 {
+  "author": "Snoring Riceball",
   "name": "YouTube Sleep Timer",
-  "version": "2.2",
+  "version": "2.3",
   "description": "A video play/pause timer for Youtube! Also serves as a sleep timer :)",
   "content_security_policy": {
     "default-src": "self"
   },
+  "minimum_chrome_version": "99",
   "permissions": [
     "declarativeContent",
     "alarms",
     "scripting",
     "tabs"
   ],
-  "host_permissions": ["https://*.youtube.com/"],
+  "host_permissions": [
+    "https://*.youtube.com/"
+  ],
   "background": {
     "service_worker": "background.js"
   },

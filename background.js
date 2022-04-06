@@ -72,6 +72,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   return true;
 });
 
+// https://developer.chrome.com/docs/extensions/reference/alarms/#method-create
+// There's a 1 minute delay for alarms api
 chrome.alarms.onAlarm.addListener((alarm) => {
   chrome.scripting.executeScript({
     target: { tabId: parseInt(alarm.name) },
