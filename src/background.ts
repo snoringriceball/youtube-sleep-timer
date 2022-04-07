@@ -1,8 +1,9 @@
 'use strict';
 
+import { loadImageData } from "./helpers";
 import LocalAlarm from "./LocalAlarm";
 
-
+// this handles grey-out of icons on unsupported sites
 chrome.runtime.onInstalled.addListener(() => {
   chrome.declarativeContent.onPageChanged.removeRules(async () => {
     chrome.declarativeContent.onPageChanged.addRules([
@@ -30,16 +31,6 @@ chrome.runtime.onInstalled.addListener(() => {
   });
 });
 
-// SVG icons aren't supported yet
-async function loadImageData(url: string): Promise<ImageData> {
-  const img = await createImageBitmap(await (await fetch(url)).blob());
-  const { width: w, height: h } = img;
-  const canvas = new OffscreenCanvas(w, h);
-  const ctx = canvas.getContext('2d');
-  if (!ctx) throw new Error('Unable to render image');
-  ctx.drawImage(img, 0, 0, w, h);
-  return ctx.getImageData(0, 0, w, h);
-}
 
 // cannot use async/await here since the message port listening for the response will timeout
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
@@ -90,6 +81,7 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
 });
 
 chrome.tabs.onRemoved.addListener((tabId) => {
+  console.log(`tab ${tabId} was removed, delete it's corresponding alarm`)
   deleteAlarm(tabId);
 });
 
@@ -130,20 +122,26 @@ async function findLocalAlarmByTabId(tabId: number): Promise<LocalAlarm | undefi
 }
 
 async function findLocalAlarmByName(alarmName: string): Promise<LocalAlarm | undefined> {
+  console.log(`looking for local alarm called ${alarmName}`)
   const alarms = await fetchAllLocalAlarms();
   return alarms.find(x => x.alarmName === alarmName);
 }
 
 async function deleteAlarm(tabId: number) {
   const deletedAlarm = await deleteLocalAlarm(tabId);
-  await chrome.alarms.clear(deletedAlarm.alarmName);
+  if (deletedAlarm) {
+    await chrome.alarms.clear(deletedAlarm.alarmName);
+    console.log(`deleted alarm for tab id: ${tabId}`)
+  }
 }
 
-async function deleteLocalAlarm(tabId: number) {
+async function deleteLocalAlarm(tabId: number): Promise<LocalAlarm | undefined> {
   const alarms = await fetchAllLocalAlarms();
   const idx = alarms.findIndex(x => x.tabId === tabId);
+  if (idx === -1) return;
   const [alarm] = alarms.splice(idx, 1);
   await chrome.storage.local.set({ 'alarms': alarms });
+  console.log(`local alarm ${alarm.alarmName} for tab ${alarm.tabId} was deleted`)
   return alarm;
 }
 
@@ -154,4 +152,5 @@ async function modifyTabId(newTabId: number, oldTabId: number) {
     localAlarm.tabId = newTabId;
     await chrome.storage.local.set({ 'alarms': alarms });
   }
+  console.log(`tab id ${oldTabId} was changed to ${newTabId}`)
 }
