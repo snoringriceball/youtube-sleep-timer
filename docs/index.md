@@ -3,7 +3,7 @@
 For sharing and contribution, visit [Youtube Sleep Timer @SnoringRiceball](https://github.com/snoringriceball/youtube-sleep-timer).
 
 
-<img src="https://github.com/snoringriceball/youtube-sleep-timer/blob/main/static/demo.gif" alt="YouTube Sleep Timer Demo"  width="250" />
+<img src="static/demo.gif" alt="YouTube Sleep Timer Demo"  width="700" />
 
 
 ## Installation
