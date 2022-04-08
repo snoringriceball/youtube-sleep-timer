@@ -11,7 +11,8 @@
     "declarativeContent",
     "alarms",
     "scripting",
-    "tabs"
+    "tabs",
+    "storage"
   ],
   "host_permissions": [
     "https://*.youtube.com/"

@@ -4,9 +4,9 @@ A sleep timer for YouTube!
 
 ## Usage
 
-Install the plugin from the Chrome [Webstore](https://chrome.google.com/webstore/detail/youtube-timer/gfegfgkiikpkochkfgopiolcfbmkfkll)
+To install the plugin from the Chrome [Webstore](https://chrome.google.com/webstore/detail/youtube-timer/gfegfgkiikpkochkfgopiolcfbmkfkll)
 
-Or, download this repo and follow instructions [here](https://developer.chrome.com/docs/extensions/mv3/getstarted/#unpacked) to load an unpacked extension.
+To load it unpacked, download the zip file called yt-sleep-timer.zip from the latest [release](https://github.com/snoringriceball/youtube-sleep-timer/releases), unzip to get a folder called "dist". Then follow instructions [here](https://developer.chrome.com/docs/extensions/mv3/getstarted/#unpacked) to load an unpacked extension.
 
 ## FAQ
 
@@ -18,6 +18,12 @@ Or, download this repo and follow instructions [here](https://developer.chrome.c
     - Alarms: This is for using the Chrome Alarms API. Starting from manifest version 3 (mv3), developers are required to use this API for setting timers. Please note that because this API is managed by Google, we have no control over it's accuracy.
     - Scripting: This is so that we can run some code to play/pause the Youtube Video.
     - Tabs: This is so that we can keep track of which tab is running which timer.
+
+
+## Dev Setup
+
+This project uses typescript and webpack to compile javascript files in to ./dist folder in the project root directory. After cloning the repo, run `npm install && npm run build` to compile the ts files into js, and load the dist folder as an unpacked extension. 
+
 
 ## Disclaimer: 
 
