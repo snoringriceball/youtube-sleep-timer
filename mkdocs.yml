@@ -1,3 +1,29 @@
 site_name: YouTube Sleep Timer
+site_author: Snoring Riceball
+repo_name: snoringriceball/youtube-sleep-timer
+repo_url: https://github.com/snoringriceball/youtube-sleep-timer
+copyright: Snoring Riceball
+edit_uri: ""
+
 theme:
   name: material
+  locale: en
+  logo: static/clock_128.png
+  font:
+    text: Gluten
+  palette:
+    - media: "(prefers-color-scheme: light)"      
+      scheme: default
+      toggle:
+        icon: material/weather-sunny 
+        name: Switch to dark mode
+      primary: cyan
+      accent: yellow
+
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate 
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github-alt
